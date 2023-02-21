@@ -9,7 +9,7 @@
 # Github: https://github.com/vaamonde
 # Data de criação: 10/10/2021
 # Data de atualização: 25/01/2023
-# Versão: 0.85
+# Versão: P0.01
 # Testado e homologado para a versão do Ubuntu Server 20.04.x LTS x64
 #
 # Parâmetros (variáveis de ambiente) utilizados nos scripts de instalação dos Serviços de Rede
