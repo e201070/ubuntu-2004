@@ -48,15 +48,15 @@ sudo systemd-resolve --statistics
 #
 # Não se utiliza mais os comandos ifdown e ifup para desligar os ligar as placas
 # de rede no Ubuntu Server, utilizamos os comandos ifconfig ou ip para isso
-sudo ifdown enp0s3
-sudo ifup enp0s3
+sudo ifdown ens33
+sudo ifup ens33
 #
 # Opção ifconfig down e up ainda e utilizado para depende do pacote net-tool
 # seja instalado no sistema, o comando ip link set é o padrão do Ubuntu Server
-sudo ifconfig enp0s3 down
-sudo ifconfig enp0s3 up
-sudo ip link set enp0s3 down
-sudo ip link set enp0s3 up
+sudo ifconfig ens33 down
+sudo ifconfig ens33 up
+sudo ip link set ens33 down
+sudo ip link set ens33 up
 #
 # Diretório padrão das configurações da Placa de Rede no Ubuntu Server
 cd /etc/netplan/
@@ -78,16 +78,16 @@ sudo apt install bridge-utils ifenslave net-tools
 # Configuração do endereçamento IPv4 Dynamic (Dinâmico)
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: true
 	version: 2
 #	
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
-sudo netplan ip leases enp0s3
+sudo netplan ip leases ens33
 sudo systemd-resolve --status
-sudo ifconfig enp0s3
+sudo ifconfig ens33
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -97,7 +97,7 @@ sudo ip route
 # utilizando os [] (Colchetes)
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
 			addresses: [192.168.1.10/24]
 			gateway4: 192.168.1.1
@@ -110,7 +110,7 @@ network:
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig enp0s3
+sudo ifconfig ens33
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -120,7 +120,7 @@ sudo ip route
 # utilizando o - (traço/menos/hífen) utilizando a tabulação padrão do YAML
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
 			addresses: 
 			- 192.168.1.10/24
@@ -138,7 +138,7 @@ network:
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig enp0s3
+sudo ifconfig ens33
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -146,27 +146,27 @@ sudo ip route
 # Configurações de múltiplos endereços IPv4 Static (Estático)
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
 			addresses: 
-			- 192.168.1.100/24
 			- 192.168.2.100/24
 			- 192.168.3.100/24
-			gateway4: 192.168.1.1
+			- 192.168.4.100/24
+			gateway4: 192.168.2.1
 			nameservers:
 				addresses:
 				- 10.0.0.1
 				- 8.8.8.8 
 				- 8.8.4.4
 				search: 
-				- pti.intra
+				- Home.lab
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig enp0s3
+sudo ifconfig ens33
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -174,19 +174,19 @@ sudo ip route
 # Configurações de múltiplos endereços de Gateway Padrão com custo igual
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
 			addresses: 
-			- 192.168.1.100/24
 			- 192.168.2.100/24
 			- 192.168.3.100/24
+			- 192.168.4.100/24
 			nameservers:
 				addresses:
 				- 10.0.0.1
 				- 8.8.8.8 
 				- 8.8.4.4
 				search: 
-				- pti.intra
+				- Home.Lab
 			routers:
 				- to: 0.0.0.0/0
          		via: 9.0.0.1
@@ -215,16 +215,16 @@ sudo ip route
 # Iniciar o módulo: sudo modprobe bonding 
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
-		enp0s8
-			dhcp4: false
+#		enp0s8
+#			dhcp4: false
 	bonds:
 		bond0:
 			dhcp4: true
 			interfaces:
-				- enp0s3
-				- enp0s8
+				- ens33
+#				- enp0s8
 			parameters:
 				mode: balance-rr
 	version: 2
@@ -243,22 +243,22 @@ sudo ip route
 # Conectado a: Placa de rede exclusiva de hospedeiro (host-only) - Nome: vboxnet
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
-		enp0s8
+		ens33
 			dhcp4: false
 	bonds:
 		bond0:
 			dhcp4: false
 			interfaces:
-				- enp0s3
-				- enp0s8
-			addresses: [172.16.1.20/24]
-			gateway4: 172.16.1.254
+				- ens33
+#				- enp0s8
+			addresses: [192.168.1.10/24]
+			gateway4: 192.168.1.1
 			nameservers:
-				addresses: [172.16.1.254,8.8.8.8,8.8.4.4]
+				addresses: [192.168.1.1,8.8.8.8,8.8.4.4]
 				search:
-					- pti.intra
+					- Home.Lab
 			parameters:
 				mode: balance-rr
 	version: 2
@@ -275,13 +275,13 @@ sudo ip route
 # Configurações de Bridges com interface dinâmica
 network:
 	ethernets:
-		enp0s3:
+		ens33:
 			dhcp4: false
 	bridges:
 		br0:
 			dhcp4: yes
 			interfaces:
-				- enp0s3
+				- ens33
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
@@ -299,11 +299,11 @@ network:
         inet:
             id: 50
             link: bond0
-            addresses: [172.16.1.20/24]
-            gateway4: 172.16.1.254
+            addresses: [192.168.1.10/24]
+            gateway4: 192.168.1.1
             dhcp4: false
             nameservers:
-                addresses: [172.16.1.254,8.8.8.8,8.8.4.4]
+                addresses: [192.168.1.1,8.8.8.8,8.8.4.4]
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
@@ -326,8 +326,8 @@ network:
 			nameservers:
 				addresses: [192.168.0.1, 8.8.8.8]
 			access-points:
-				"pti-intra":
-				password: "pti@2018"
+				"Home.Lab":
+				password: "password"
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
