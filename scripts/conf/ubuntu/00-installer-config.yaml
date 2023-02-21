@@ -42,7 +42,7 @@ network:
         #
         # Configuração do Nome de Pesquisa DNS do Ubuntu Server
         search:
-        - Home.Lab
+        - home.lab
         #
   # Configuração da versão do Protocolo Ethernet do Ubuntu Server
   version: 2
