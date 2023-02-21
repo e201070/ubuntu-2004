@@ -102,8 +102,8 @@ network:
 			addresses: [192.168.1.10/24]
 			gateway4: 192.168.1.1
 			nameservers:
-				addresses: [172.16.1.1, 8.8.8.8, 8.8.4.4]
-				search: [Home.lab]
+				addresses: [192.168.1.1, 8.8.8.8, 8.8.4.4]
+				search: [home.lab]
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
@@ -139,7 +139,7 @@ sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
 sudo ifconfig ens33
-sudo ip address show enp3s0 
+sudo ip address show ens33
 sudo route -n
 sudo ip route
 #
@@ -203,8 +203,8 @@ network:
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig enp0s3
-sudo ip address show enp3s0
+sudo ifconfig ens33
+sudo ip address show ens33
 sudo route -n
 sudo ip route
 #
