@@ -287,7 +287,7 @@ echo -e "Editando o arquivo de configuração 172.16.1.rev, pressione <Enter> pa
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
-	vim /var/lib/bind/172.16.1.rev
+	vim /var/lib/bind/192.168.1.rev
 	named-checkzone $DOMAINREV /var/lib/bind/172.16.1.rev &>> $LOG
 	named-checkzone $NETWORK /var/lib/bind/172.16.1.rev &>> $LOG
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
