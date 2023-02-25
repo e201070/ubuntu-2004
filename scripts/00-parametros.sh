@@ -54,7 +54,7 @@ USUARIODEFAULT="pcs"
 #
 # Variável da Senha padrão utilizado no Servidor Ubuntu desse curso
 # OBSERVAÇÃO IMPORTANTE: essa variável será utilizada em outras variáveis desse curso
-SENHADEFAULT="password"
+SENHADEFAULT="P@ul0c&$ar"
 #
 # Variável do Nome (Hostname) do Servidor Ubuntu desse curso
 NOMESERVER="petserver"
@@ -189,10 +189,10 @@ PORTDHCP="67"
 DOMAIN=$DOMINIOSERVER
 #
 # Variável do nome da Pesquisa Reversa do Servidor de DNS
-DOMAINREV="1.168.192.in-addr.arpa"
+DOMAINREV="15.168.192.in-addr.arpa"
 #
 # Variável do endereço IPv4 da Subrede do Servidor de DNS
-NETWORK="192.168.1."
+NETWORK="192.168.15."
 #
 # Variável de instalação do serviço de rede Bind DNS Server
 DNSINSTALL="bind9 bind9utils bind9-doc dnsutils net-tools"

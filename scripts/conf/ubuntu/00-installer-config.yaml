@@ -19,7 +19,7 @@ network:
   ethernets:
     #
     # Configuração do Nome da Placa de Rede do Ubuntu Server
-    ens33:
+    ens160:
       #
       # Configuração do Endereço IPv4 Dinâmico via DHCP do Ubuntu Server
       # OBSERVAÇÃO: por padrão o endereço IPv4 dinâmico em servidores não é utilizado
@@ -27,22 +27,22 @@ network:
       #
       # Configuração do Endereço IPv4 e CIDR Estático do Ubuntu Server
       addresses:
-      - 192.168.1.10/24
+      - 192.168.15.10/24
       #
       # Configuração do Endereço de Gateway IPv4 do Ubuntu Server
-      gateway4: 192.168.1.1
+      gateway4: 192.168.15.1
       #
       # Configuração dos Endereços de DNS Server IPv4 do Ubuntu Server
       nameservers:
         addresses:
-        #- 192.168.1.10
-        - 192.168.1.1
-        #- 8.8.8.8
-        #- 8.8.8.8
+        #- 192.168.15.10
+        - 192.168.15.1
+        - 1.1.1.1
+        - 8.8.8.8
         #
         # Configuração do Nome de Pesquisa DNS do Ubuntu Server
         search:
-        - home.lab
+        - petcare.intra
         #
   # Configuração da versão do Protocolo Ethernet do Ubuntu Server
   version: 2
