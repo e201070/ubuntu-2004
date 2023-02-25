@@ -30,20 +30,20 @@
 #
 # Testando o DNS no GNU/Linux ou Microsoft Windows
 # Linux Mint Terminal: Ctrl+Alt+T 
-#	nslookup pti.intra (query Internet name servers interactively)
-#	dig pti.intra (DNS lookup utility)
-#	host pti.intra (DNS lookup utility)
-#	ping pti.intra (send ICMP ECHO_REQUEST to network hosts)
+#	nslookup petcare.intra (query Internet name servers interactively)
+#	dig petcare.intra (DNS lookup utility)
+#	host petcare.intra (DNS lookup utility)
+#	ping petcare.intra (send ICMP ECHO_REQUEST to network hosts)
 #
 # Windows Powershell.: 
-#	nslookup pti.intra
-#	nslookup 172.16.1.20
+#	nslookup petcare.intra
+#	nslookup 92.168.15.10
 #	nslookup ptispo01ws01
-#	nslookup ptispo01ws01.pti.intra
+#	nslookup ptispo01ws01.petcare.intra
 #	ipconfig /displaydns
-#	ping pti.intra
-#	Resolve-DnsName pti.intra
-#	Test-Connection pti.intra
+#	ping petcare.intra
+#	Resolve-DnsName petcare.intra
+#	Test-Connection petcare.intra
 #
 # Arquivo de configuração dos parâmetros utilizados nesse script
 source 00-parametros.sh
@@ -227,12 +227,12 @@ echo -e "Atualizando os arquivos de configuração do Bind DNS Server, aguarde..
 	mv -v /etc/bind/rndc.key /etc/bind/rndc.key.old &>> $LOG
 	mv -v /etc/default/named /etc/default/named.old &>> $LOG
 	cp -v conf/dns/{named.conf,named.conf.local,named.conf.options,named.conf.default-zones,rndc.key} /etc/bind/ &>> $LOG
-	cp -v conf/dns/{pti.intra.hosts,172.16.1.rev} /var/lib/bind/ &>> $LOG
+	cp -v conf/dns/{petcare.intra.hosts.192.168.15..rev} /var/lib/bind/ &>> $LOG
 	cp -v conf/dns/{dnsupdate-cron,rndcupdate-cron} /etc/cron.d/ &>> $LOG
 	cp -v conf/dns/named /etc/default/ &>> $LOG
 	cp -v conf/dns/rndcstats /etc/logrotate.d/ &>> $LOG
 	chown -v root:bind /etc/bind/rndc.key &>> $LOG
-	chown -v root:bind /var/lib/bind/{pti.intra.hosts,172.16.1.rev} &>> $LOG
+	chown -v root:bind /var/lib/bind/{petcare.intra.hosts.192.168.15.rev} &>> $LOG
 echo -e "Arquivos atualizados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -274,22 +274,22 @@ echo -e "Editando o arquivo de configuração rndc.key, pressione <Enter> para c
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
-echo -e "Editando o arquivo de configuração pti.intra.hosts, pressione <Enter> para continuar."
+echo -e "Editando o arquivo de configuração petcare.intra.hosts, pressione <Enter> para continuar."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
-	vim /var/lib/bind/pti.intra.hosts
-	named-checkzone $DOMAIN /var/lib/bind/pti.intra.hosts &>> $LOG
+	vim /var/lib/bind/petcare.intra.hosts
+	named-checkzone $DOMAIN /var/lib/bind/petcare.intra.hosts &>> $LOG
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
-echo -e "Editando o arquivo de configuração 172.16.1.rev, pressione <Enter> para continuar."
+echo -e "Editando o arquivo de configuração 92.168.15.rev, pressione <Enter> para continuar."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
-	vim /var/lib/bind/192.168.1.rev
-	named-checkzone $DOMAINREV /var/lib/bind/172.16.1.rev &>> $LOG
-	named-checkzone $NETWORK /var/lib/bind/172.16.1.rev &>> $LOG
+	vim /var/lib/bind/192.168.15.rev
+	named-checkzone $DOMAINREV /var/lib/bind/92.168.15.rev &>> $LOG
+	named-checkzone $NETWORK /var/lib/bind/92.168.15.rev &>> $LOG
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
