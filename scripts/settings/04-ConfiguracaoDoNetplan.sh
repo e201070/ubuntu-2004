@@ -48,15 +48,15 @@ sudo systemd-resolve --statistics
 #
 # Não se utiliza mais os comandos ifdown e ifup para desligar os ligar as placas
 # de rede no Ubuntu Server, utilizamos os comandos ifconfig ou ip para isso
-sudo ifdown ens33
-sudo ifup ens33
+sudo ifdown ens160
+sudo ifup ens160
 #
 # Opção ifconfig down e up ainda e utilizado para depende do pacote net-tool
 # seja instalado no sistema, o comando ip link set é o padrão do Ubuntu Server
-sudo ifconfig ens33 down
-sudo ifconfig ens33 up
-sudo ip link set ens33 down
-sudo ip link set ens33 up
+sudo ifconfig ens160 down
+sudo ifconfig ens160 up
+sudo ip link set ens160 down
+sudo ip link set ens160 up
 #
 # Diretório padrão das configurações da Placa de Rede no Ubuntu Server
 cd /etc/netplan/
@@ -78,16 +78,16 @@ sudo apt install bridge-utils ifenslave net-tools
 # Configuração do endereçamento IPv4 Dynamic (Dinâmico)
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: true
 	version: 2
 #	
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
-sudo netplan ip leases ens33
+sudo netplan ip leases ens160
 sudo systemd-resolve --status
-sudo ifconfig ens33
+sudo ifconfig ens160
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -97,20 +97,20 @@ sudo ip route
 # utilizando os [] (Colchetes)
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
-			addresses: [192.168.1.10/24]
-			gateway4: 192.168.1.1
+			addresses: [192.168.15.10/24]
+			gateway4: 192.168.15.1
 			nameservers:
-				addresses: [192.168.1.1, 8.8.8.8, 8.8.4.4]
-				search: [home.lab]
+				addresses: [192.168.15.1, 1.1.1.1, 8.8.4.4]
+				search: [petcare.intra]
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig ens33
+sudo ifconfig ens160
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -120,33 +120,33 @@ sudo ip route
 # utilizando o - (traço/menos/hífen) utilizando a tabulação padrão do YAML
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
 			addresses: 
-			- 192.168.1.10/24
-			gateway4: 192.168.1.1
+			- 192.168.15.10/24
+			gateway4: 192.168.15.1
 			nameservers:
 				addresses: 
-				- 192.168.1.1
-				- 8.8.8.8 
+				- 192.168.15.1
+				- 1.1.1.1 
 				- 8.8.4.4
 				search: 
-				- Home.lab
+				- petcare.intra
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig ens33
-sudo ip address show ens33
+sudo ifconfig ens160
+sudo ip address show ens160
 sudo route -n
 sudo ip route
 #
 # Configurações de múltiplos endereços IPv4 Static (Estático)
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
 			addresses: 
 			- 192.168.2.100/24
@@ -156,17 +156,17 @@ network:
 			nameservers:
 				addresses:
 				- 10.0.0.1
-				- 8.8.8.8 
+				- 1.1.1.1 
 				- 8.8.4.4
 				search: 
-				- Home.lab
+				- petcare.intra
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig ens33
+sudo ifconfig ens160
 sudo ip address show enp3s0 
 sudo route -n
 sudo ip route
@@ -174,7 +174,7 @@ sudo ip route
 # Configurações de múltiplos endereços de Gateway Padrão com custo igual
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
 			addresses: 
 			- 192.168.2.100/24
@@ -183,10 +183,10 @@ network:
 			nameservers:
 				addresses:
 				- 10.0.0.1
-				- 8.8.8.8 
+				- 1.1.1.1 
 				- 8.8.4.4
 				search: 
-				- Home.Lab
+				- petcare.intra
 			routers:
 				- to: 0.0.0.0/0
          		via: 9.0.0.1
@@ -203,8 +203,8 @@ network:
 sudo netplan --debug try
 sudo netplan --debug apply
 sudo systemd-resolve --status
-sudo ifconfig ens33
-sudo ip address show ens33
+sudo ifconfig ens160
+sudo ip address show ens160
 sudo route -n
 sudo ip route
 #
@@ -215,7 +215,7 @@ sudo ip route
 # Iniciar o módulo: sudo modprobe bonding 
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
 #		enp0s8
 #			dhcp4: false
@@ -223,7 +223,7 @@ network:
 		bond0:
 			dhcp4: true
 			interfaces:
-				- ens33
+				- ens160
 #				- enp0s8
 			parameters:
 				mode: balance-rr
@@ -243,22 +243,22 @@ sudo ip route
 # Conectado a: Placa de rede exclusiva de hospedeiro (host-only) - Nome: vboxnet
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
-		ens33
+		ens160
 			dhcp4: false
 	bonds:
 		bond0:
 			dhcp4: false
 			interfaces:
-				- ens33
+				- ens160
 #				- enp0s8
-			addresses: [192.168.1.10/24]
-			gateway4: 192.168.1.1
+			addresses: [192.168.15.10/24]
+			gateway4: 192.168.15.1
 			nameservers:
-				addresses: [192.168.1.1,8.8.8.8,8.8.4.4]
+				addresses: [192.168.15.1,1.1.1.1,8.8.4.4]
 				search:
-					- Home.Lab
+					- petcare.intra
 			parameters:
 				mode: balance-rr
 	version: 2
@@ -275,13 +275,13 @@ sudo ip route
 # Configurações de Bridges com interface dinâmica
 network:
 	ethernets:
-		ens33:
+		ens160:
 			dhcp4: false
 	bridges:
 		br0:
 			dhcp4: yes
 			interfaces:
-				- ens33
+				- ens160
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
@@ -299,11 +299,11 @@ network:
         inet:
             id: 50
             link: bond0
-            addresses: [192.168.1.10/24]
-            gateway4: 192.168.1.1
+            addresses: [192.168.15.10/24]
+            gateway4: 192.168.15.1
             dhcp4: false
             nameservers:
-                addresses: [192.168.1.1,8.8.8.8,8.8.4.4]
+                addresses: [192.168.15.1,1.1.1.1,8.8.4.4]
 	version: 2
 #
 # Aplicando as configurações e verificando o status da Placa de Rede
@@ -324,9 +324,9 @@ network:
 			addresses: [192.168.0.21/24]
 			gateway4: 192.168.0.1
 			nameservers:
-				addresses: [192.168.0.1, 8.8.8.8]
+				addresses: [192.168.0.1, 1.1.1.1]
 			access-points:
-				"Home.Lab":
+				"petcare.intra":
 				password: "password"
 	version: 2
 #
