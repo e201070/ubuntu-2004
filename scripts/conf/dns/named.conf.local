@@ -35,7 +35,7 @@ zone "petcare.intra" IN {
 };
 
 // Configuração da Zona de Pesquisa Reversa do Bind9 DNS Server
-zone "1.16.172.in-addr.arpa" IN {
+zone "15.168.192.in-addr.arpa" IN {
 	type master;
 	file "/var/lib/bind/192.168.15.rev";
 	allow-update { key rndc-key; };

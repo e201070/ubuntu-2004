@@ -221,10 +221,10 @@ PORTRNDC="953"
 # 
 # Variável da senha em modo texto que está configurada nos arquivos: dhcpd.conf, named.conf.local
 # e rndc.key que será substituída pela nova chave criptografada da variável: USERUPDATE
-SECRETUPDATE="pcs"
+SECRETUPDATE="password"
 #
 # Variável da senha utilizada na criação da chave de atualização dos ponteiros do DNS e DHCP
-USERUPDATE="pcs"
+USERUPDATE="Password000"
 #
 # Variável das dependências do laço de loop da integração do Bind DNS e do ISC DHCP Server
 DHCPDNSDEP="isc-dhcp-server bind9"
