@@ -80,7 +80,7 @@ IPV4SERVER="192.168.15.10"
 # CUIDADO!!! o nome da interface de rede pode mudar dependendo da instalação do Ubuntu Server,
 # verificar o nome da interface com o comando: ip address show e mudar a variável INTERFACE com
 # o nome correspondente.
-INTERFACE="ens160"
+INTERFACE="enp0s25"
 #
 # Variável do arquivo de configuração da Placa de Rede do Netplan do Servidor Ubuntu
 # CUIDADO!!! o nome do arquivo de configuração da placa de rede pode mudar dependendo da 
